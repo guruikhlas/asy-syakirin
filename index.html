@@ -9,11 +9,10 @@
     
     <style>
         :root {
-            --primary-green: #064e3b; /* Hijau Islami Tua */
-            --gold-accent: #d4af37;   /* Emas Klasik */
-            --gold-light: #f3e5ab;    /* Emas Muda */
-            --bg-cream: #fdfbf7;      /* Putih Gading */
-            --white: #ffffff;
+            --primary-green: #064e3b;
+            --gold-accent: #d4af37;
+            --gold-light: #f3e5ab;
+            --bg-cream: #fdfbf7;
         }
 
         body {
@@ -21,73 +20,50 @@
             background-color: var(--bg-cream);
             margin: 0;
             color: #2d3436;
-            padding-bottom: 50px;
         }
 
-        /* --- HEADER MEWAH --- */
+        /* HEADER TANPA LOGO - DIBUAT LEBIH MEWAH */
         .header {
             background: linear-gradient(135deg, var(--primary-green) 0%, #0d6b3a 100%);
             color: var(--gold-light);
-            padding: 35px 15px;
+            padding: 50px 20px;
             text-align: center;
-            border-bottom: 5px solid var(--gold-accent);
+            border-bottom: 6px solid var(--gold-accent);
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             position: relative;
-            overflow: hidden;
         }
-
-        /* Ornamen Tipis di Background Header */
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
-            opacity: 0.1;
-        }
-
-        .logo-box {
-            width: 95px;
-            height: 95px;
-            background: var(--white);
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px var(--gold-accent);
-            border: 3px solid var(--gold-accent);
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo-box img { width: 85%; height: auto; }
 
         .header h1 { 
             margin: 0; 
             font-family: 'Amiri', serif; 
-            font-size: 1.8rem; 
+            font-size: 2.5rem; 
             color: var(--gold-accent);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .header p { margin: 5px 0 0; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); }
+        .header p { 
+            margin: 5px 0 0; 
+            font-size: 1rem; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            opacity: 0.9;
+        }
 
         #live-clock { 
             font-size: 0.9rem; 
             background: rgba(0,0,0,0.3); 
             display: inline-block; 
-            padding: 5px 15px; 
-            border-radius: 20px; 
-            margin-top: 15px;
+            padding: 6px 20px; 
+            border-radius: 25px; 
+            margin-top: 20px;
             border: 1px solid var(--gold-accent);
-            color: var(--gold-light);
         }
 
-        /* --- RUNNING TEXT --- */
+        /* RUNNING TEXT */
         .marquee-container {
-            background: #1a1a1a;
+            background: #111;
             color: var(--gold-accent);
             padding: 10px 0;
             overflow: hidden;
@@ -99,7 +75,7 @@
         .marquee-text {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 30s linear infinite;
+            animation: marquee 35s linear infinite;
         }
 
         @keyframes marquee {
@@ -107,12 +83,12 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* --- KALENDER NAV --- */
+        /* NAVIGASI TANGGAL */
         .calendar-nav {
             display: flex;
             overflow-x: auto;
             padding: 25px 15px;
-            gap: 15px;
+            gap: 12px;
             scrollbar-width: none;
         }
         .calendar-nav::-webkit-scrollbar { display: none; }
@@ -123,12 +99,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: var(--white);
+            background: white;
             border-radius: 15px;
             cursor: pointer;
             transition: 0.3s;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #ddd;
         }
 
         .date-item.active {
@@ -136,78 +111,52 @@
             color: var(--gold-accent);
             border-color: var(--gold-accent);
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(6, 78, 59, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .date-item .day-name { font-size: 0.7rem; font-weight: 600; opacity: 0.7; }
         .date-item .day-num { font-size: 1.2rem; font-weight: 700; }
+        .date-item .day-name { font-size: 0.7rem; font-weight: 600; opacity: 0.7; }
 
-        /* --- KARTU JADWAL --- */
+        /* KARTU JADWAL */
         .container { padding: 0 20px; max-width: 500px; margin: auto; }
 
         .schedule-card {
-            background: var(--white);
+            background: white;
             border-radius: 25px;
             padding: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 1px solid var(--gold-light);
-            position: relative;
-        }
-
-        .schedule-card::after {
-            content: "🕌";
-            position: absolute;
-            bottom: 10px; right: 15px;
-            opacity: 0.1; font-size: 3rem;
         }
 
         .date-title {
             color: var(--primary-green);
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
             margin-bottom: 20px;
+            border-bottom: 2px double var(--gold-accent);
             padding-bottom: 10px;
-            border-bottom: 2px gold double;
-            display: flex;
-            justify-content: space-between;
+            text-align: center;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 14px 18px;
             background: #f9f9f9;
-            border-radius: 15px;
-            margin-bottom: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
             border-left: 5px solid var(--primary-green);
-            transition: 0.3s;
-        }
-
-        .special-row {
-            background: #fffcf0;
-            border-left-color: var(--gold-accent);
-            border: 1px solid var(--gold-light);
         }
 
         .label-text { font-size: 0.75rem; color: #7f8c8d; text-transform: uppercase; font-weight: 600; }
         .imam-text { font-size: 1rem; font-weight: 600; color: var(--primary-green); }
 
-        .footer { 
-            text-align: center; 
-            padding: 40px 20px; 
-            color: #95a5a6; 
-            font-size: 0.8rem; 
-        }
-        .footer b { color: var(--primary-green); }
+        .footer { text-align: center; padding: 40px 20px; color: #95a5a6; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="logo-box">
-            <img src="logo.png" alt="Logo">
-        </div>
         <h1>Masjid Asy Syakirin</h1>
         <p>Jadwal Imam Harian 2025</p>
         <div id="live-clock">Memuat Waktu...</div>
@@ -215,21 +164,19 @@
 
     <div class="marquee-container">
         <div class="marquee-text">
-             ✨ JADWAL IMAM MASJID ASY SYAKIRIN TAHUN 2025 ✨ | MOHON UNTUK PARA IMAM HADIR 15 MENIT SEBELUM ADZAN BERKUMANDANG | JAZAKUMULLAHU KHAIRAN.
+             🕌 JADWAL IMAM TAHUN 2025 • MOHON HADIR 15 MENIT SEBELUM ADZAN • JIKA BERHALANGAN MOHON KOORDINASI DENGAN IMAM LAIN • JAZAKUMULLAHU KHAIRAN.
         </div>
     </div>
 
     <div class="calendar-nav" id="dateNav"></div>
 
     <div class="container">
-        <div class="schedule-card" id="scheduleDisplay">
-            </div>
+        <div class="schedule-card" id="scheduleDisplay"></div>
     </div>
 
     <div class="footer">
         &copy; 2025 <b>Masjid Asy Syakirin</b> <br>
-        Dibuat dengan ❤️ untuk Jamaah <br>
-        <i>Update: 24 Desember 2025</i>
+        Update Terakhir: 24 Desember 2025
     </div>
 
     <script>
@@ -241,7 +188,7 @@
             "2025-12-25": { label: "Kamis, 25 Des 2025", subuh: "Surianto, B.Sc", zuhur: "Januri", ashar: "Zulkarnain", magrib: "Nuhba Padang, S.Pd", isya: "Citra Dharma P, S.Kom" },
             "2025-12-26": { label: "Jumat, 26 Des 2025", subuh: "M. Yudi Ashari", ashar: "Januri", magrib: "Zulkarnain", isya: "Nuhba Padang, S.Pd", khatib: "Ust. Agus Subono, S.PdI" },
             "2025-12-27": { label: "Sabtu, 27 Des 2025", subuh: "M. Yudi Ashari", zuhur: "Surianto, B.Sc", ashar: "Januri", magrib: "Nuhba Padang, S.Pd", isya: "Citra Dharma P, S.Kom" },
-            "2025-12-28": { label: "Minggu, 28 Des 2025", subuh: "Citra Dharma P, S.Kom", zuhur: "Januri", ashar: "Surianto, B.Sc", magrib: "Zulkarnain", isya: "M. Yudi Ashari", kajian: "Ust. Abdul Rajab Siregar, S.PdI (Subuh)" },
+            "2025-12-28": { label: "Minggu, 28 Des 2025", subuh: "Citra Dharma P, S.Kom", zuhur: "Januri", ashar: "Surianto, B.Sc", magrib: "Zulkarnain", isya: "M. Yudi Ashari" },
             "2025-12-29": { label: "Senin, 29 Des 2025", subuh: "Surianto, B.Sc", zuhur: "Zulkarnain", ashar: "Januri", magrib: "Nuhba Padang, S.Pd", isya: "Citra Dharma P, S.Kom" },
             "2025-12-30": { label: "Selasa, 30 Des 2025", subuh: "Zulkarnain", zuhur: "Januri", ashar: "Surianto, B.Sc", magrib: "Citra Dharma P, S.Kom", isya: "Nuhba Padang, S.Pd" },
             "2025-12-31": { label: "Rabu, 31 Des 2025", subuh: "Citra Dharma P, S.Kom", zuhur: "Surianto, B.Sc", ashar: "Januri", magrib: "Nuhba Padang, S.Pd", isya: "Zulkarnain" }
@@ -250,44 +197,27 @@
         function showSchedule(dateKey) {
             const data = jadwalData[dateKey];
             const display = document.getElementById('scheduleDisplay');
-            
-            let html = `<div class="date-title"><span><i class="fas fa-calendar-day"></i> ${data.label}</span></div>`;
-            
-            if(data.kajian) {
-                html += `<div class="info-row special-row"><div><span class="label-text" style="color:#b38f00">Kajian Ahad Subuh</span><span class="imam-text">${data.kajian}</span></div><i class="fas fa-microphone-lines" style="color:var(--gold-accent)"></i></div>`;
-            }
-            if(data.khatib) {
-                html += `<div class="info-row special-row"><div><span class="label-text" style="color:#b38f00">Khatib Shalat Jumat</span><span class="imam-text">${data.khatib}</span></div><i class="fas fa-mosque" style="color:var(--gold-accent)"></i></div>`;
-            }
-            
-            const sholats = ["subuh", "zuhur", "ashar", "magrib", "isya"];
-            sholats.forEach(s => {
-                if(data[s]) {
-                    html += `<div class="info-row"><div><span class="label-text">${s}</span><span class="imam-text">${data[s]}</span></div><i class="fas fa-angle-right" style="color:#ddd"></i></div>`;
-                }
+            let html = `<div class="date-title">${data.label}</div>`;
+            if(data.khatib) html += `<div class="info-row" style="background:#fffcf0; border-left-color:gold"><div><span class="label-text">Khatib Jumat</span><span class="imam-text">${data.khatib}</span></div></div>`;
+            ["subuh", "zuhur", "ashar", "magrib", "isya"].forEach(s => {
+                if(data[s]) html += `<div class="info-row"><div><span class="label-text">${s}</span><span class="imam-text">${data[s]}</span></div></div>`;
             });
-
             display.innerHTML = html;
-
             document.querySelectorAll('.date-item').forEach(el => {
-                el.classList.remove('active');
-                if(el.dataset.id === dateKey) el.classList.add('active');
+                el.classList.toggle('active', el.dataset.id === dateKey);
             });
         }
 
         function init() {
             const nav = document.getElementById('dateNav');
             const dayNames = ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"];
-            
             for(let i=21; i<=31; i++) {
                 const dateKey = `2025-12-${i}`;
                 const dateObj = new Date(2025, 11, i);
-                const dayName = dayNames[dateObj.getDay()];
-                
                 const item = document.createElement('div');
                 item.className = 'date-item';
                 item.dataset.id = dateKey;
-                item.innerHTML = `<span class="day-name">${dayName}</span><span class="day-num">${i}</span>`;
+                item.innerHTML = `<span class="day-num">${i}</span><span class="day-name">${dayNames[dateObj.getDay()]}</span>`;
                 item.onclick = () => showSchedule(dateKey);
                 nav.appendChild(item);
             }
@@ -296,8 +226,7 @@
 
         setInterval(() => {
             const now = new Date();
-            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-            document.getElementById('live-clock').innerText = now.toLocaleTimeString('id-ID') + " | " + now.toLocaleDateString('id-ID', options);
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString('id-ID') + " | " + now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
         }, 1000);
 
         init();
