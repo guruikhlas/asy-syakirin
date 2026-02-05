@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Masjid Asy-Syakirin</title>
+    <title>Jadwal Masjid Asy-Syakirin - Februari</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -56,7 +56,7 @@
             cursor: pointer; transition: 0.3s; font-size: 0.7rem;
         }
         .date-btn span { display: block; font-weight: bold; font-size: 0.9rem; }
-        .date-btn.active { background: var(--gold); color: var(--dark-green); }
+        .date-btn:hover, .date-btn.active { background: var(--gold); color: var(--dark-green); }
     </style>
 </head>
 <body>
@@ -69,129 +69,199 @@
         <div class="sub-header">Percut Sei Tuan, Deli Serdang, Sumatera Utara</div>
 
         <div class="clock-box">
+            <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+    <button onclick="suaraAlarmBiasa.play()" class="date-btn" style="background: rgba(212, 175, 55, 0.2); padding: 5px 10px;">
+        <i class="fas fa-bell"></i> Tes Alarm
+    </button>
+    <button onclick="suaraAdzanBiasa.play()" class="date-btn" style="background: rgba(212, 175, 55, 0.2); padding: 5px 10px;">
+        <i class="fas fa-volume-up"></i> Tes Adzan
+    </button>
+    <button onclick="suaraAdzanSubuh.play()" class="date-btn" style="background: rgba(212, 175, 55, 0.2); padding: 5px 10px;">
+        <i class="fas fa-moon"></i> Tes Subuh
+    </button>
+    <button onclick="stopSemuaAudio()" class="date-btn" style="background: rgba(220, 53, 69, 0.4); border-color: #ff4444; color: #ffcccc; padding: 5px 15px;">
+        <i class="fas fa-stop-circle"></i> STOP
+    </button>
+</div>
             <span id="live-time">00:00:00</span>
             <span id="live-date">Memuat Hari...</span>
         </div>
 
         <div id="detail-view"></div>
 
-        <p id="label-bulan" style="font-size: 0.7rem; color: var(--gold-light); margin-top: 20px;">PILIH TANGGAL (FEBRUARI 2026):</p>
+        <p style="font-size: 0.7rem; color: var(--gold-light); margin-top: 20px;">PILIH TANGGAL (FEBRUARI 2026):</p>
         <div class="date-grid" id="date-buttons"></div>
     </div>
 
     <script>
-        const imams = ["SURIANTO, B.Sc", "CITRA DHARMA PRAYOGO, S.Kom", "MAWARDI NUR, S.Pd", "NUHBAH PADANG, S.Pd", "MUHAMMAD YUDI ASHARI", "ZULKARNAIN"];
+    const imams = ["SURIANTO, B.Sc", "CITRA DHARMA PRAYOGO, S.Kom", "MAWARDI NUR, S.Pd", "NUHBAH PADANG, S.Pd", "MUHAMMAD YUDI ASHARI", "ZULKARNAIN"];
+    
+    // 2. DAFTAR SUARA
+    const suaraAlarmBiasa = new Audio('Alarm_1.wav');
+    const suaraAdzanBiasa = new Audio('Azan.mp3');
+    const suaraAdzanSubuh = new Audio('Azan_Shubuh.mp3');
+
+    const khatibs = { 
+        "06": "Ust. Ruslan, S.Ag.", 
+        "13": "Ust. Khoiruddin Daulay, S.Pd.I", 
+        "20": "Ust. Abi Sanjaya, S.Pd.I", 
+        "27": "Ust. Fahruddin, S.Pd." 
+    };
+
+    const prayerTimes = {
+        start: { sub: "05:28", zuh: "12:41", ash: "16:01", mag: "18:41", isy: "19:53" },
+        end: { sub: "05:25", zuh: "12:40", ash: "15:58", mag: "18:42", isy: "19:53" }
+    };
+
+    const scheduleMatrix = {
+        "01": [1, 2, 3, 4, 5], "02": [6, 1, 2, 3, 4], "03": [5, 6, 1, 2, 3], "04": [4, 5, 6, 1, 2], "05": [3, 4, 5, 6, 1], 
+        "06": [2, 0, 4, 5, 6], "07": [1, 2, 3, 4, 5], "08": [6, 1, 2, 3, 4], "09": [5, 6, 1, 2, 3], "10": [4, 5, 6, 1, 2],
+        "11": [3, 4, 5, 6, 1], "12": [2, 3, 4, 5, 6], "13": [1, 0, 3, 4, 5], "14": [6, 1, 2, 3, 4], "15": [5, 6, 1, 2, 3],
+        "16": [4, 5, 6, 1, 2], "17": [3, 4, 5, 6, 1], "18": [2, 3, 4, 5, 6], "19": [1, 2, 3, 4, 5], "20": [6, 0, 2, 3, 4],
+        "21": [5, 6, 1, 2, 3], "22": [4, 5, 6, 1, 2], "23": [3, 4, 5, 6, 1], "24": [2, 3, 4, 5, 6], "25": [1, 2, 3, 4, 5],
+        "26": [6, 1, 2, 3, 4], "27": [5, 0, 1, 2, 3], "28": [4, 5, 6, 1, 2]
+    };
+
+    function getWaktu(tipe, tgl) {
+        const factor = (tgl - 1) / 27;
+        const startStr = prayerTimes.start[tipe].split(':');
+        const endStr = prayerTimes.end[tipe].split(':');
+        const startMin = parseInt(startStr[0]) * 60 + parseInt(startStr[1]);
+        const endMin = parseInt(endStr[0]) * 60 + parseInt(endStr[1]);
+        const currentMin = Math.floor(startMin + (endMin - startMin) * factor);
+        return `${Math.floor(currentMin/60).toString().padStart(2,'0')}:${(currentMin%60).toString().padStart(2,'0')}`;
+    }
+
+    function generateCalendar() {
+        const grid = document.getElementById('date-buttons');
+        if (!grid) return;
+        grid.innerHTML = ''; 
+
+        const daysName = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+        const skrg = new Date();
+        const tglHariIni = skrg.getDate();
+        const bulanHariIni = skrg.getMonth(); 
+
+        for (let i = 1; i <= 28; i++) {
+            const date = new Date(2026, 1, i);
+            const dayLabel = daysName[date.getDay()];
+            const dayStr = i.toString().padStart(2, '0');
+            const btn = document.createElement('button');
+            btn.className = 'date-btn';
+            btn.id = `btn-tgl-${i}`; 
+            btn.innerHTML = `${dayLabel} <span>${dayStr}</span>`;
+            
+            btn.onclick = () => {
+                // Pancingan audio
+                suaraAlarmBiasa.load(); 
+                suaraAdzanBiasa.load();
+                suaraAdzanSubuh.load();
+
+                document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                showDetail(dayStr, dayLabel);
+            };
+            grid.appendChild(btn);
+        }
+
+        // Buka otomatis hari ini
+        if (bulanHariIni === 1 && tglHariIni <= 28) {
+            const el = document.getElementById(`btn-tgl-${tglHariIni}`);
+            if(el) el.click();
+        } else {
+            const el = document.getElementById('btn-tgl-1');
+            if(el) el.click();
+        }
+    }
+
+    function showDetail(dayStr, dayLabel) {
+        const view = document.getElementById('detail-view');
+        const codes = scheduleMatrix[dayStr];
+        const khatib = khatibs[dayStr];
+        const isJumat = (dayLabel === "Jum");
+
+        let html = `<h3 style="margin-top:0; color:var(--dark-green); border-bottom:2px solid var(--gold); padding-bottom:10px;">Jadwal ${dayLabel}, ${dayStr} Feb 2026</h3>`;
+
+        if (isJumat && khatib) {
+            html += `<div class="khatib-header"><i class="fas fa-mosque"></i> KHATIB / IMAM JUM'AT:<br><span style="font-size:1.1rem">${khatib}</span></div>`;
+        }
+
+        const prayers = [
+            { id: 'sub', n: 'Subuh', icon: 'cloud-sun' },
+            { id: 'zuh', n: 'Zuhur', icon: 'sun' },
+            { id: 'ash', n: 'Ashar', icon: 'cloud-sun-rain' },
+            { id: 'mag', n: 'Maghrib', icon: 'moon' },
+            { id: 'isy', n: 'Isya', icon: 'cloud-moon' }
+        ];
+
+        prayers.forEach((p, idx) => {
+            if (isJumat && p.id === 'zuh') return;
+            const imamIndex = codes[idx] - 1;
+            const imamName = (imamIndex >= 0) ? imams[imamIndex] : "—";
+            html += `
+                <div class="row-detail">
+                    <span class="label-sholat"><i class="fas fa-${p.icon}"></i> ${p.n} <span class="waktu-angka">${getWaktu(p.id, parseInt(dayStr))}</span></span>
+                    <span class="nama-imam">${imamName}</span>
+                </div>`;
+        });
+
+        view.innerHTML = html;
+        view.style.display = 'block';
+    }
+function stopSemuaAudio() {
+    [suaraAlarmBiasa, suaraAdzanBiasa, suaraAdzanSubuh].forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0; // Reset waktu ke awal
+    });
+}
+    function updateClock() {
+        const now = new Date();
+        const timeEl = document.getElementById('live-time');
+        const dateEl = document.getElementById('live-date');
+        if(timeEl) timeEl.innerText = now.toLocaleTimeString('id-ID');
+        if(dateEl) dateEl.innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function checkAlarm() {
+        const sekarang = new Date();
+        if (sekarang.getMonth() !== 1) return; 
+
+        const tglHariIni = sekarang.getDate();
+        const jamSkrg = sekarang.getHours().toString().padStart(2, '0');
+        const menitSkrg = sekarang.getMinutes().toString().padStart(2, '0');
+        const detikSkrg = sekarang.getSeconds();
+        const waktuSkrgStr = `${jamSkrg}:${menitSkrg}`;
         
-        const khatibs = { 
-            "06": "Ust. Ruslan, S.Ag.", 
-            "13": "Ust. Khoiruddin Daulay, S.Pd.I", 
-            "20": "Ust. Abi Sanjaya, S.Pd.I", 
-            "27": "Ust. Fahruddin, S.Pd." 
-        };
+        const listSholat = [
+            {id:'sub', n:'Subuh'}, {id:'zuh', n:'Zuhur'}, {id:'ash', n:'Ashar'}, {id:'mag', n:'Maghrib'}, {id:'isy', n:'Isya'}
+        ];
 
-        const prayerTimes = {
-            start: { sub: "05:28", zuh: "12:41", ash: "16:01", mag: "18:41", isy: "19:53" },
-            end: { sub: "05:25", zuh: "12:40", ash: "15:58", mag: "18:42", isy: "19:53" }
-        };
+        listSholat.forEach(sholat => {
+            const waktuSholat = getWaktu(sholat.id, tglHariIni); 
+            const [jamS, menitS] = waktuSholat.split(':').map(Number);
+            let totalMenitAlarm = (jamS * 60) + menitS - 15;
+            const waktuAlarmStr = `${Math.floor(totalMenitAlarm/60).toString().padStart(2,'0')}:${(totalMenitAlarm%60).toString().padStart(2,'0')}`;
 
-        const scheduleMatrix = {
-            "01": [1, 2, 3, 4, 5], "02": [6, 1, 2, 3, 4], "03": [5, 6, 1, 2, 3], "04": [4, 5, 6, 1, 2], "05": [3, 4, 5, 6, 1], 
-            "06": [2, 0, 4, 5, 6], "07": [1, 2, 3, 4, 5], "08": [6, 1, 2, 3, 4], "09": [5, 6, 1, 2, 3], "10": [4, 5, 6, 1, 2],
-            "11": [3, 4, 5, 6, 1], "12": [2, 3, 4, 5, 6], "13": [1, 0, 3, 4, 5], "14": [6, 1, 2, 3, 4], "15": [5, 6, 1, 2, 3],
-            "16": [4, 5, 6, 1, 2], "17": [3, 4, 5, 6, 1], "18": [2, 3, 4, 5, 6], "19": [1, 2, 3, 4, 5], "20": [6, 0, 2, 3, 4],
-            "21": [5, 6, 1, 2, 3], "22": [4, 5, 6, 1, 2], "23": [3, 4, 5, 6, 1], "24": [2, 3, 4, 5, 6], "25": [1, 2, 3, 4, 5],
-            "26": [6, 1, 2, 3, 4], "27": [5, 0, 1, 2, 3], "28": [4, 5, 6, 1, 2]
-        };
-
-        function getWaktu(tipe, tgl) {
-            const factor = (tgl - 1) / 27;
-            const startStr = prayerTimes.start[tipe].split(':');
-            const endStr = prayerTimes.end[tipe].split(':');
-            const startMin = parseInt(startStr[0]) * 60 + parseInt(startStr[1]);
-            const endMin = parseInt(endStr[0]) * 60 + parseInt(endStr[1]);
-            const currentMin = Math.floor(startMin + (endMin - startMin) * factor);
-            return `${Math.floor(currentMin/60).toString().padStart(2,'0')}:${(currentMin%60).toString().padStart(2,'0')}`;
-        }
-
-        function generateCalendar() {
-            const grid = document.getElementById('date-buttons');
-            grid.innerHTML = ''; 
-            const daysName = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
-            const skrg = new Date();
-            const tglHariIni = skrg.getDate();
-            const bulanSkrg = skrg.getMonth(); // 1 = Feb
-
-            for (let i = 1; i <= 28; i++) {
-                const date = new Date(2026, 1, i);
-                const dayLabel = daysName[date.getDay()];
-                const dayStr = i.toString().padStart(2, '0');
-                const btn = document.createElement('button');
-                btn.className = 'date-btn';
-                btn.id = `btn-tgl-${i}`; 
-                btn.innerHTML = `${dayLabel} <span>${dayStr}</span>`;
-                btn.onclick = () => {
-                    document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    showDetail(dayStr, dayLabel);
-                };
-                grid.appendChild(btn);
+            if (waktuSkrgStr === waktuAlarmStr && detikSkrg === 0) {
+                suaraAlarmBiasa.play().catch(e => console.log("Audio diblokir"));
+                aconsole.log(`📢 PENGINGAT: 15 Menit lagi masuk waktu ${sholat.n}.`);
+// Atau biarkan kosong saja kalau kamu cuma mau suaranya bunyi.
             }
 
-            // OTOMATIS BUKA HARI INI
-            setTimeout(() => {
-                if (bulanSkrg === 1) {
-                    const target = document.getElementById(`btn-tgl-${tglHariIni}`);
-                    if(target) target.click();
+            if (waktuSkrgStr === waktuSholat && detikSkrg === 0) {
+                if (sholat.id === 'sub') {
+                    suaraAdzanSubuh.play().catch(e => console.log("Audio diblokir"));
                 } else {
-                    const def = document.getElementById('btn-tgl-1');
-                    if(def) def.click();
+                    suaraAdzanBiasa.play().catch(e => console.log("Audio diblokir"));
                 }
-            }, 300);
-        }
-
-        function showDetail(dayStr, dayLabel) {
-            const view = document.getElementById('detail-view');
-            const codes = scheduleMatrix[dayStr];
-            const khatib = khatibs[dayStr];
-            const isJumat = (dayLabel === "Jum");
-
-            let html = `<h3 style="margin-top:0; color:var(--dark-green); border-bottom:2px solid var(--gold); padding-bottom:10px;">Jadwal ${dayLabel}, ${dayStr} Feb 2026</h3>`;
-
-            if (isJumat && khatib) {
-                html += `<div class="khatib-header"><i class="fas fa-mosque"></i> KHATIB / IMAM JUM'AT:<br><span style="font-size:1.1rem">${khatib}</span></div>`;
             }
+        });
+    }
 
-            const prayers = [
-                { id: 'sub', n: 'Subuh', icon: 'cloud-sun' },
-                { id: 'zuh', n: 'Zuhur', icon: 'sun' },
-                { id: 'ash', n: 'Ashar', icon: 'cloud-sun-rain' },
-                { id: 'mag', n: 'Maghrib', icon: 'moon' },
-                { id: 'isy', n: 'Isya', icon: 'cloud-moon' }
-            ];
-
-            prayers.forEach((p, idx) => {
-                if (isJumat && p.id === 'zuh') return;
-                const imamIdx = codes[idx] - 1;
-                const imamName = (imamIdx >= 0) ? imams[imamIdx] : "—";
-                html += `
-                    <div class="row-detail">
-                        <span class="label-sholat"><i class="fas fa-${p.icon}"></i> ${p.n} <span class="waktu-angka">${getWaktu(p.id, parseInt(dayStr))}</span></span>
-                        <span class="nama-imam">${imamName}</span>
-                    </div>`;
-            });
-
-            view.innerHTML = html;
-            view.style.display = 'block';
-        }
-
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('live-time').innerText = now.toLocaleTimeString('id-ID');
-            document.getElementById('live-date').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-        }
-
+    // JALANKAN SEMUA FUNGSI
+    window.onload = () => {
+        generateCalendar();
         setInterval(updateClock, 1000);
-        window.onload = generateCalendar;
-    </script>
-</body>
-</html>
+        setInterval(checkAlarm, 1000);
+    };
+</script>
