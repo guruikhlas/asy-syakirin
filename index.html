@@ -103,6 +103,89 @@
         .running-text-container:hover .running-text-content {
             animation-play-state: paused;
         }
+        /* CSS UNTUK MODAL TARAWIH */
+        .modal-tarawih {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: white; 
+            margin: 15% auto; 
+            padding: 20px;
+            border-radius: 20px; 
+            width: 90%; 
+            max-width: 450px; 
+            color: #333;
+            max-height: 70vh; 
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .close-btn { 
+            color: #d4af37; 
+            position: absolute; 
+            right: 15px; 
+            top: 10px; 
+            font-size: 28px; 
+            font-weight: bold; 
+            cursor: pointer; 
+        }
+        .tarawih-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+            font-size: 0.8rem; 
+        }
+        .tarawih-table th { 
+            background: var(--dark-green); 
+            color: var(--gold); 
+            padding: 12px 8px; 
+            position: sticky; 
+            top: 0; 
+        }
+        .tarawih-table td { 
+            border-bottom: 1px solid #eee; 
+            padding: 10px 8px; 
+            text-align: left; 
+            line-height: 1.4;
+        }
+        .tarawih-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .info-lebaran {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(6, 78, 59, 0.4));
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    margin: 10px 0 15px 0;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.lebaran-title {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.lebaran-detail {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.khotib-nama b {
+    color: var(--gold);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
     </style>
 </head>
 <body>
@@ -122,7 +205,14 @@
     </div>
 </div>
         <div class="sub-header">Percut Sei Tuan, Deli Serdang, Sumatera Utara</div>
-
+<div class="info-lebaran">
+    <div class="lebaran-title">
+        <i class="fas fa-star-and-crescent"></i> SHOLAT IDUL FITRI 1 SYAWAL 1447 H
+    </div>
+    <div class="lebaran-detail">
+        <span class="khotib-nama">Khatib/Imam : <b>USTADZ FERY FADLI, S.Pd</b></span>
+    </div>
+</div>
         <div class="clock-box">
             <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
     <button onclick="suaraAlarmBiasa.play()" class="date-btn" style="background: rgba(212, 175, 55, 0.2); padding: 5px 10px;">
@@ -136,6 +226,18 @@
     </button>
     <button onclick="stopSemuaAudio()" class="date-btn" style="background: rgba(220, 53, 69, 0.4); border-color: #ff4444; color: #ffcccc; padding: 5px 15px;">
         <i class="fas fa-stop-circle"></i> STOP
+        <button onclick="bukaModalTarawih()" class="date-btn" style="background: rgba(212, 175, 55, 0.4); border-color: #d4af37; color: white; margin-top: 10px; width: 100%; font-weight: bold;">
+    <i class="fas fa-moon"></i> JADWAL TARAWIH 1447 H
+</button>
+
+<div id="modalTarawih" class="modal-tarawih">
+    <div class="modal-content">
+        <span class="close-btn" onclick="tutupModalTarawih()">&times;</span>
+        <h2 style="color: var(--dark-green); font-family: 'Amiri', serif;">Jadwal Tarawih 1447 H</h2>
+        <div id="tabelTarawihContainer">
+            </div>
+    </div>
+</div>
     </button>
 </div>
             <span id="live-time">00:00:00</span>
@@ -150,7 +252,51 @@
 
     <script>
     const imams = ["SURIANTO, B.Sc", "CITRA DHARMA PRAYOGO, S.Kom", "MAWARDI NUR, S.Pd", "NUHBAH PADANG, S.Pd", "MUHAMMAD YUDI ASHARI", "ZULKARNAIN"];
+    // INI ADALAH ARRAY (DAFTAR) JADWAL TARAWIH
+const dataTarawih = [
+    { tgl: "19 Feb", malam: "1", imam: "BKM ASY-SYAKIRIN", bilal: "M. YUDI ASHARI" },
+    { tgl: "20 Feb", malam: "2", imam: "BULIAN PURBA, S.Ag", bilal: "FITRIONO, SE" },
+    { tgl: "21 Feb", malam: "3", imam: "AHMAD NAZRI ADLANI NST, M.Sos", bilal: "ERIZAL" },
+    { tgl: "22 Feb", malam: "4", imam: "MUHAMMAD ZULKIFLI, S.Sos", bilal: "AHMAD SYAHRI" },
+    { tgl: "23 Feb", malam: "5", imam: "FAHRUDDIN NST, S.Pd", bilal: "ANDI SYAHPUTRA" },
+    { tgl: "24 Feb", malam: "6", imam: "KHOIRUDDIN DAULAY, S.PdI", bilal: "C.DHARMA PRAYOGO.S.Kom" },
+    { tgl: "25 Feb", malam: "7", imam: "ABDUL HAMID,S.PdI", bilal: "MUHAMMAD HAFIS" },
+    { tgl: "26 Feb", malam: "8", imam: "ARIF HABIBI, S.PdI", bilal: "M. YUDI ASHARI" },
+    { tgl: "27 Feb", malam: "9", imam: "MUHAMMAD IRSYAD,M.Ag", bilal: "FITRIONO.SE" },
+    { tgl: "28 Feb", malam: "10", imam: "MUHAMMAD NAZRI ADLANI NST,M.Sos", bilal: "ERIZAL" }
+    // Nanti bisa kamu tambah sampai malam ke-30 bray
+];
+
+// FUNGSI UNTUK MEMBUKA JENDELA (MODAL)
+function bukaModalTarawih() {
+    const container = document.getElementById('tabelTarawihContainer');
+    let html = `<table class="tarawih-table">
+                <thead>
+                    <tr>
+                        <th>Malam</th>
+                        <th>Imam / Penceramah</th>
+                        <th>Bilal</th>
+                    </tr>
+                </thead>
+                <tbody>`;
     
+    dataTarawih.forEach(item => {
+        html += `<tr>
+                    <td style="text-align:center"><b>${item.malam}</b><br><small>${item.tgl}</small></td>
+                    <td>${item.imam}</td>
+                    <td>${item.bilal}</td>
+                 </tr>`;
+    });
+    
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+    document.getElementById('modalTarawih').style.display = "block";
+}
+
+// FUNGSI UNTUK MENUTUP JENDELA
+function tutupModalTarawih() {
+    document.getElementById('modalTarawih').style.display = "none";
+}
     // 2. DAFTAR SUARA
     const suaraAlarmBiasa = new Audio('Alarm_1.wav');
     const suaraAdzanBiasa = new Audio('Azan.mp3');
@@ -320,4 +466,3 @@ function stopSemuaAudio() {
         setInterval(checkAlarm, 1000);
     };
 </script>
-
