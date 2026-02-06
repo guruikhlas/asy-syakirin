@@ -460,9 +460,17 @@ function stopSemuaAudio() {
     }
 
     // JALANKAN SEMUA FUNGSI
-    window.onload = () => {
-        generateCalendar();
-        setInterval(updateClock, 1000);
-        setInterval(checkAlarm, 1000);
-    };
+    window.onload = function() {
+    // Memaksa browser mobile mengenali file audio
+    suaraAlarmBiasa.load();
+    suaraAdzanBiasa.load();
+    suaraAdzanSubuh.load();
+
+    generateCalendar();
+    
+    // Jalankan jam dan alarm
+    setInterval(updateClock, 1000);
+    setInterval(checkAlarm, 1000);
+};
 </script>
+
