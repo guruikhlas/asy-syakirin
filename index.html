@@ -57,6 +57,52 @@
         }
         .date-btn span { display: block; font-weight: bold; font-size: 0.9rem; }
         .date-btn:hover, .date-btn.active { background: var(--gold); color: var(--dark-green); }
+        /* CSS UNTUK RUNNING TEXT */
+        .running-text-container {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Background gelap transparan */
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            overflow: hidden;
+            margin: 15px 0;
+            padding: 10px 0;
+            white-space: nowrap;
+        }
+
+        .running-text-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite; /* Kecepatan jalan */
+            color: var(--gold-light);
+            font-size: 0.85rem;
+        }
+
+        .running-text-content span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .running-text-content b {
+            color: white;
+            font-weight: 600;
+        }
+
+        .separator {
+            color: var(--gold);
+            margin: 0 20px;
+            font-weight: bold;
+        }
+
+        /* Animasi jalannya bray */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Berhenti kalau mouse lewat (opsional) */
+        .running-text-container:hover .running-text-content {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +112,15 @@
             <img src="logo asy_syakirin.jpeg" alt="Logo Asy-Syakirin">
         </div>
         <h1>MASJID ASY-SYAKIRIN</h1>
+        <div class="running-text-container">
+    <div class="running-text-content">
+        <span><i class="fas fa-wallet"></i> Saldo Kas Masjid: <b>Rp 24.483.000</b></span>
+        <span class="separator">|</span>
+        <span><i class="fas fa-info-circle"></i> Info: Pengajian Rutin oleh Ust.Abdul Rajab Siregar, S.Ag - Ahad Pagi Ba'da Shubuh </span>
+        <span class="separator">|</span>
+        <span><i class="fas fa-hand-holding-heart"></i> Mari Berinfaq untuk Pembangunan Renovasi Masjid : BANK SUMUT CAPEM SYARIAH KARYA - 61202010021106 - a.n BKM Asy-Syakirin</span>
+    </div>
+</div>
         <div class="sub-header">Percut Sei Tuan, Deli Serdang, Sumatera Utara</div>
 
         <div class="clock-box">
@@ -244,7 +299,7 @@ function stopSemuaAudio() {
 
             if (waktuSkrgStr === waktuAlarmStr && detikSkrg === 0) {
                 suaraAlarmBiasa.play().catch(e => console.log("Audio diblokir"));
-                aconsole.log(`📢 PENGINGAT: 15 Menit lagi masuk waktu ${sholat.n}.`);
+                console.log(`📢 PENGINGAT: 15 Menit lagi masuk waktu ${sholat.n}.`);
 // Atau biarkan kosong saja kalau kamu cuma mau suaranya bunyi.
             }
 
