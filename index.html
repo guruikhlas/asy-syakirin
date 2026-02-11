@@ -495,53 +495,20 @@ function stopSemuaAudio() {
         }
     }
 }
+    // JALANKAN SEMUA FUNGSI (Di luar onload agar langsung ngebut)
+updateClock(); 
+generateCalendar(); 
 
+// SET INTERVAL AGAR JALAN TIAP DETIK
+setInterval(updateClock, 1000);
+setInterval(checkAlarm, 1000);
 
-        const tglHariIni = sekarang.getDate();
-        const jamSkrg = sekarang.getHours().toString().padStart(2, '0');
-        const menitSkrg = sekarang.getMinutes().toString().padStart(2, '0');
-        const detikSkrg = sekarang.getSeconds();
-        const waktuSkrgStr = `${jamSkrg}:${menitSkrg}`;
-        
-        const listSholat = [
-            {id:'sub', n:'Subuh'}, {id:'zuh', n:'Zuhur'}, {id:'ash', n:'Ashar'}, {id:'mag', n:'Maghrib'}, {id:'isy', n:'Isya'}
-        ];
-
-        listSholat.forEach(sholat => {
-            const waktuSholat = getWaktu(sholat.id, tglHariIni); 
-            const [jamS, menitS] = waktuSholat.split(':').map(Number);
-            let totalMenitAlarm = (jamS * 60) + menitS - 15;
-            const waktuAlarmStr = `${Math.floor(totalMenitAlarm/60).toString().padStart(2,'0')}:${(totalMenitAlarm%60).toString().padStart(2,'0')}`;
-
-            if (waktuSkrgStr === waktuAlarmStr && detikSkrg === 0) {
-                suaraAlarmBiasa.play().catch(e => console.log("Audio diblokir"));
-                console.log(`📢 PENGINGAT: 15 Menit lagi masuk waktu ${sholat.n}.`);
-// Atau biarkan kosong saja kalau kamu cuma mau suaranya bunyi.
-            }
-
-            if (waktuSkrgStr === waktuSholat && detikSkrg === 0) {
-                if (sholat.id === 'sub') {
-                    suaraAdzanSubuh.play().catch(e => console.log("Audio diblokir"));
-                } else {
-                    suaraAdzanBiasa.play().catch(e => console.log("Audio diblokir"));
-                }
-            }
-        });
-    }
-
-    // JALANKAN SEMUA FUNGSI
-    window.onload = function() {
-    // Memaksa browser mobile mengenali file audio
-    suaraAlarmBiasa.load();
-    suaraAdzanBiasa.load();
-    suaraAdzanSubuh.load();
-
-    generateCalendar();
-    
-    // Jalankan jam dan alarm
-    setInterval(updateClock, 1000);
-    setInterval(checkAlarm, 1000);
+// LOAD AUDIO (Tetap di onload biar hemat memori)
+window.onload = function() {
+    if (typeof suaraAdzanBiasa !== 'undefined') suaraAdzanBiasa.load();
+    if (typeof suaraAdzanSubuh !== 'undefined') suaraAdzanSubuh.load();
 };
 </script>
+
 
 
