@@ -68,6 +68,25 @@
             padding: 10px 0;
             white-space: nowrap;
         }
+.btn-pengumuman {
+    background: linear-gradient(45deg, #ff9800, #f44336);
+    color: white;
+    padding: 12px;
+    border-radius: 15px;
+    text-align: center;
+    margin: 20px 15px;
+    display: block;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
 
         .running-text-content {
             display: inline-block;
@@ -213,6 +232,9 @@
         <span class="khotib-nama">Khatib/Imam : <b>USTADZ FERY FADLI, S.Pd</b></span>
     </div>
 </div>
+        <a href="#" class="btn-pengumuman" onclick="alert('BKM ASY-SYAKIRIN:\n\nMari Gotong Royong Akbar!\nMinggu, 15 Feb 2026\nJam: 08.00 WIB s/d Selesai\n\nTitik Kumpul: Halaman Masjid.\nMohon bawa peralatan masing-masing bray!')">
+   📢 INFO GOTONG ROYONG 15 FEB
+</a>
         <div class="clock-box">
             <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
     <button onclick="suaraAlarmBiasa.play()" class="date-btn" style="background: rgba(212, 175, 55, 0.2); padding: 5px 10px;">
@@ -493,3 +515,4 @@ function stopSemuaAudio() {
     setInterval(checkAlarm, 1000);
 };
 </script>
+
