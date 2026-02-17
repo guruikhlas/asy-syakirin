@@ -275,39 +275,38 @@
     <script>
     const imams = ["SURIANTO, B.Sc", "CITRA DHARMA PRAYOGO, S.Kom", "MAWARDI NUR, S.Pd", "NUHBAH PADANG, S.Pd", "MUHAMMAD YUDI ASHARI", "ZULKARNAIN"];
     // INI ADALAH ARRAY (DAFTAR) JADWAL TARAWIH
-const dataTarawih = [
-    { tgl: "18 Feb", malam: "1", imam: "BKM ASY-SYAKIRIN", bilal: "M. YUDI ASHARI" },
-    { tgl: "19 Feb", malam: "2", imam: "BULIAN PURBA, S.Ag", bilal: "FITRIONO, SE" },
-    { tgl: "20 Feb", malam: "3", imam: "AHMAD NAZRI ADLANI NST, M.Sos", bilal: "ERIZAL" },
-    { tgl: "21 Feb", malam: "4", imam: "MUHAMMAD ZULKIFLI, S.Sos", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
-    { tgl: "22 Feb", malam: "5", imam: "FAHRUDDIN NASUTION, S.Pd", bilal: "ANDI SYAHPUTRA" },
-    { tgl: "23 Feb", malam: "6", imam: "KHOIRUDDIN DAULAY, S.Pd.I", bilal: "C.D. PRAYOGO" },
-    { tgl: "24 Feb", malam: "7", imam: "ABDUL HAMID, S.Pd.I", bilal: "HAFIS" },
-    { tgl: "25 Feb", malam: "8", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "M. YUDI ASHARI" },
-    { tgl: "26 Feb", malam: "9", imam: "MUHAMMAD IRSYAD, M.Ag", bilal: "FITRIONO, SE" },
-    { tgl: "27 Feb", malam: "10", imam: "AHMAD NAZRI ADLANI NST, M.Sos", bilal: "ERIZAL" },
-    { tgl: "28 Feb", malam: "11", imam: "MUHAMMAD ZULKIFLI, S.Sos", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
-    { tgl: "1 Mar", malam: "12", imam: "IBRAHIM HASIBUAN, S.Pd.I", bilal: "ANDI SYAHPUTRA" },
-    { tgl: "2 Mar", malam: "13", imam: "FADLAN KHOIR, S.Th.I, M.Ag", bilal: "C.D. PRAYOGO" },
-    { tgl: "3 Mar", malam: "14", imam: "MAWARDI NUR, S.Pd", bilal: "HAFIS" },
-    { tgl: "4 Mar", malam: "15", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "M. YUDI ASHARI" },
-    { tgl: "5 Mar", malam: "16", imam: "BULIAN PURBA, S.Ag", bilal: "FITRIONO, SE" },
-    { tgl: "6 Mar", malam: "17", imam: "H. MARA JAKSA HARAHAP, MA", bilal: "ERIZAL" },
-    { tgl: "7 Mar", malam: "18", imam: "ABDUL RAJAB SIREGAR, S.Ag", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
-    { tgl: "8 Mar", malam: "19", imam: "KHOIRUDDIN DAULAY, S.Pd.I", bilal: "ANDI SYAHPUTRA" },
-    { tgl: "9 Mar", malam: "20", imam: "FAHRUDDIN NASUTION, S.Pd", bilal: "C.D. PRAYOGO" },
-    { tgl: "10 Mar", malam: "21", imam: "ABDUL HAMID, S.Pd.I", bilal: "HAFIS" },
-    { tgl: "11 Mar", malam: "22", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "M. YUDI ASHARI" },
-    { tgl: "12 Mar", malam: "23", imam: "SURIANTO, B.Sc", bilal: "FITRIONO, SE" },
-    { tgl: "13 Mar", malam: "24", imam: "MUHAMMAD YUDI ASHARI", bilal: "ERIZAL" },
-    { tgl: "14 Mar", malam: "25", imam: "ABDUL RAJAB SIREGAR, S.Ag", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
-    { tgl: "15 Mar", malam: "26", imam: "IBRAHIM HASIBUAN, S.Pd.I", bilal: "ANDI SYAHPUTRA" },
-    { tgl: "16 Mar", malam: "27", imam: "FADLAN KHOIR, S.Th.I, M.Ag", bilal: "C.D. PRAYOGO" },
-    { tgl: "17 Mar", malam: "28", imam: "MUHAMMAD IRSYAD, M.Ag", bilal: "M. YUDI ASHARI" },
-    { tgl: "18 Mar", malam: "29", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "HAFIS" },
-    { tgl: "19 Mar", malam: "30", imam: "ABDUL RAJAB SIREGAR, S.Ag", bilal: "ALL BILAL" },
-    { tgl: "20 Mar", malam: "1 Syawal", imam: "USTADZ FERY FADLI, S.Pd", bilal: "TAKBIRAN", special: true }
-];
+const jadwalTarawih = {
+    "2026-02-18": { malam: 1, imam: "BKM ASY-SYAKIRIN", bilal: "M. Yudi Ashari" },
+    "2026-02-19": { malam: 2, imam: "Mawardi Nur, S.Pd", bilal: "Fitriono, SE" },
+    "2026-02-20": { malam: 3, imam: "Bulian Purba, S.Ag", bilal: "Erizal" },
+    "2026-02-21": { malam: 4, imam: "Ahmad Nazri Adlani NST, M.Sos", bilal: "Nuhbah Padang" },
+    "2026-02-22": { malam: 5, imam: "Muhammad Zulkifli, S.Sos", bilal: "Ahmad Syahri" },
+    "2026-02-23": { malam: 6, imam: "Fahruddin Nasution, S.Pd", bilal: "Andi Syahputra" },
+    "2026-02-24": { malam: 7, imam: "Khoiruddin Daulay, S.Pd.I", bilal: "C.D. Prayogo" },
+    "2026-02-25": { malam: 8, imam: "Abdul Hamid, S.Pd.I", bilal: "Hafis" },
+    "2026-02-26": { malam: 9, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "M. Yudi Ashari" },
+    "2026-02-27": { malam: 10, imam: "Muhammad Irsyad, M.Ag", bilal: "Fitriono, SE" },
+    "2026-02-28": { malam: 11, imam: "Ahmad Nazri Adlani NST, M.Sos", bilal: "Erizal" },
+    "2026-03-01": { malam: 12, imam: "Muhammad Zulkifli, S.Sos", bilal: "Nuhbah Padang" },
+    "2026-03-02": { malam: 13, imam: "Fahruddin Nasution, S.Pd", bilal: "Ahmad Syahri" },
+    "2026-03-03": { malam: 14, imam: "Khoiruddin Daulay, S.Pd.I", bilal: "Andi Syahputra" },
+    "2026-03-04": { malam: 15, imam: "Abdul Hamid, S.Pd.I", bilal: "C.D. Prayogo" },
+    "2026-03-05": { malam: 16, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "Hafis" },
+    "2026-03-06": { malam: 17, imam: "Muhammad Irsyad, M.Ag", bilal: "M. Yudi Ashari" },
+    "2026-03-07": { malam: 18, imam: "Mawardi Nur, S.Pd", bilal: "Fitriono, SE" },
+    "2026-03-08": { malam: 19, imam: "Bulian Purba, S.Ag", bilal: "Erizal" },
+    "2026-03-09": { malam: 20, imam: "Ahmad Nazri Adlani NST, M.Sos", bilal: "Nuhbah Padang" },
+    "2026-03-10": { malam: 21, imam: "Muhammad Zulkifli, S.Sos", bilal: "Ahmad Syahri" },
+    "2026-03-11": { malam: 22, imam: "Fahruddin Nasution, S.Pd", bilal: "Andi Syahputra" },
+    "2026-03-12": { malam: 23, imam: "Khoiruddin Daulay, S.Pd.I", bilal: "C.D. Prayogo" },
+    "2026-03-13": { malam: 24, imam: "Abdul Hamid, S.Pd.I", bilal: "Hafis" },
+    "2026-03-14": { malam: 25, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "M. Yudi Ashari" },
+    "2026-03-15": { malam: 26, imam: "Muhammad Irsyad, M.Ag", bilal: "Fitriono, SE" },
+    "2026-03-16": { malam: 27, imam: "Mawardi Nur, S.Pd", bilal: "Erizal" },
+    "2026-03-17": { malam: 28, imam: "Bulian Purba, S.Ag", bilal: "Nuhbah Padang" },
+    "2026-03-18": { malam: 29, imam: "BKM ASY-SYAKIRIN", bilal: "Ahmad Syahri" },
+    "2026-03-19": { malam: 30, imam: "BKM ASY-SYAKIRIN", bilal: "Andi Syahputra" }
+};
 
 // FUNGSI UNTUK MEMBUKA JENDELA (MODAL)
 function bukaModalTarawih() {
@@ -509,6 +508,7 @@ window.onload = function() {
     if (typeof suaraAdzanSubuh !== 'undefined') suaraAdzanSubuh.load();
 };
 </script>
+
 
 
 
