@@ -232,8 +232,9 @@
         <span class="khotib-nama">Khatib/Imam : <b>USTADZ FERY FADLI, S.Pd</b></span>
     </div>
 </div>
-        <a href="#" class="btn-pengumuman" onclick="alert('BKM ASY-SYAKIRIN:\n\nMari Gotong Royong Akbar!\nMinggu, 15 Feb 2026\nJam: 08.00 WIB s/d Selesai\n\nTitik Kumpul: Halaman Masjid.\nMohon bawa peralatan masing-masing bray!')">
-   📢 INFO GOTONG ROYONG 15 FEB
+   <button onclick="bukaModalImsakiyah()" style="background: linear-gradient(to right, #2ecc71, #27ae60); color: white; border: none; padding: 12px; width: 100%; border-radius: 25px; font-weight: bold; cursor: pointer; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: sans-serif; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    🌙 JADWAL IMSAKIYAH RAMADHAN 1447 H
+</button>
 </a>
         <div class="clock-box">
             <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
@@ -508,7 +509,59 @@ window.onload = function() {
     if (typeof suaraAdzanBiasa !== 'undefined') suaraAdzanBiasa.load();
     if (typeof suaraAdzanSubuh !== 'undefined') suaraAdzanSubuh.load();
 };
+        const dataImsakiyah = [
+    { t: "1", i: "05.11", m: "18.41" }, { t: "2", i: "05.11", m: "18.41" },
+    { t: "3", i: "05.11", m: "18.41" }, { t: "4", i: "05.11", m: "18.41" },
+    { t: "5", i: "05.11", m: "18.41" }, { t: "6", i: "05.11", m: "18.41" },
+    { t: "7", i: "05.11", m: "18.41" }, { t: "8", i: "05.11", m: "18.41" },
+    { t: "9", i: "05.10", m: "18.41" }, { t: "10", i: "05.10", m: "18.41" },
+    { t: "11", i: "05.10", m: "18.41" }, { t: "12", i: "05.10", m: "18.41" },
+    { t: "13", i: "05.10", m: "18.41" }, { t: "14", i: "05.10", m: "18.41" },
+    { t: "15", i: "05.09", m: "18.41" }, { t: "16", i: "05.09", m: "18.40" },
+    { t: "17", i: "05.09", m: "18.40" }, { t: "18", i: "05.09", m: "18.40" },
+    { t: "19", i: "05.08", m: "18.40" }, { t: "20", i: "05.08", m: "18.40" },
+    { t: "21", i: "05.08", m: "18.40" }, { t: "22", i: "05.07", m: "18.40" },
+    { t: "23", i: "05.07", m: "18.39" }, { t: "24", i: "05.07", m: "18.39" },
+    { t: "25", i: "05.06", m: "18.39" }, { t: "26", i: "05.06", m: "18.39" },
+    { t: "27", i: "05.06", m: "18.39" }, { t: "28", i: "05.05", m: "18.38" },
+    { t: "29", i: "05.05", m: "18.38" }, { t: "30", i: "05.55", m: "18.38" }
+];
+
+function bukaModalImsakiyah() {
+    let tableHtml = `
+        <div id="modalImsak" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; display:flex; justify-content:center; align-items:center; font-family:sans-serif;">
+            <div style="background:#1a472a; width:90%; max-width:450px; max-height:85vh; overflow-y:auto; border-radius:15px; padding:20px; color:white; border:2px solid #f1c40f; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #27ae60; padding-bottom:10px;">
+                    <h3 style="margin:0; color:#f1c40f; font-size:16px;">Jadwal Imsakiyah 1447 H</h3>
+                    <button onclick="document.getElementById('modalImsak').remove()" style="background:#e74c3c; color:white; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer; font-weight:bold;">X</button>
+                </div>
+                <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:center;">
+                    <thead style="background:#27ae60; position:sticky; top:0;">
+                        <tr>
+                            <th style="padding:10px; border:1px solid #2c3e50;">Ramadhan</th>
+                            <th style="padding:10px; border:1px solid #2c3e50;">Imsak</th>
+                            <th style="padding:10px; border:1px solid #2c3e50;">Maghrib</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+    
+    dataImsakiyah.forEach(item => {
+        tableHtml += `
+            <tr style="border-bottom: 1px solid #2c3e50;">
+                <td style="padding:10px;">${item.t} Ramadhan</td>
+                <td style="padding:10px;">${item.i}</td>
+                <td style="padding:10px; color:#f1c40f;"><b>${item.m}</b></td>
+            </tr>`;
+    });
+
+    tableHtml += `</tbody></table>
+                <p style="font-size:10px; text-align:center; margin-top:15px; color:#bdc3c7;">* Waktu Maghrib adalah waktu berbuka puasa</p>
+            </div>
+        </div>`;
+    document.body.insertAdjacentHTML('beforeend', tableHtml);
+}
 </script>
+
 
 
 
