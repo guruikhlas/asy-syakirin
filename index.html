@@ -321,13 +321,14 @@ function bukaModalTarawih() {
                 </thead>
                 <tbody>`;
     
-    dataTarawih.forEach(item => {
-        html += `<tr>
-                    <td style="text-align:center"><b>${item.malam}</b><br><small>${item.tgl}</small></td>
-                    <td>${item.imam}</td>
-                    <td>${item.bilal}</td>
-                 </tr>`;
-    });
+    Object.keys(jadwalTarawih).forEach(tgl => {
+    const item = jadwalTarawih[tgl];
+    html += `<tr>
+        <td style="text-align:center"><b>${item.malam}</b><br><small>${tgl}</small></td>
+        <td>${item.imam}</td>
+        <td>${item.bilal}</td>
+    </tr>`;
+});
     
     html += `</tbody></table>`;
     container.innerHTML = html;
@@ -508,6 +509,7 @@ window.onload = function() {
     if (typeof suaraAdzanSubuh !== 'undefined') suaraAdzanSubuh.load();
 };
 </script>
+
 
 
 
