@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Masjid Asy-Syakirin - Februari</title>
+    <title>Jadwal Masjid Asy-Syakirin - April</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -68,25 +68,6 @@
             padding: 10px 0;
             white-space: nowrap;
         }
-.btn-pengumuman {
-    background: linear-gradient(45deg, #ff9800, #f44336);
-    color: white;
-    padding: 12px;
-    border-radius: 15px;
-    text-align: center;
-    margin: 20px 15px;
-    display: block;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-}
 
         .running-text-content {
             display: inline-block;
@@ -216,7 +197,7 @@
         <h1>MASJID ASY-SYAKIRIN</h1>
         <div class="running-text-container">
     <div class="running-text-content">
-        <span><i class="fas fa-wallet"></i> Saldo Kas Masjid: <b>Rp 22.439.000</b></span>
+        <span><i class="fas fa-wallet"></i> Saldo Kas Masjid: <b>Rp 32.187.000</b></span>
         <span class="separator">|</span>
         <span><i class="fas fa-info-circle"></i> Info: Pengajian Rutin oleh Ust.Abdul Rajab Siregar, S.Ag - Ahad Pagi Ba'da Shubuh </span>
         <span class="separator">|</span>
@@ -226,16 +207,12 @@
         <div class="sub-header">Percut Sei Tuan, Deli Serdang, Sumatera Utara</div>
 <div class="info-lebaran">
     <div class="lebaran-title">
-        <i class="fas fa-star-and-crescent"></i> SHOLAT IDUL FITRI 1 SYAWAL 1447 H
+        <i class="fas fa-star-and-crescent"></i> SHOLAT IDUL ADHA 10 DZULHIJAH 1447 H
     </div>
     <div class="lebaran-detail">
-        <span class="khotib-nama">Khatib/Imam : <b>USTADZ FERY FADLI, S.Pd</b></span>
+        <span class="khotib-nama">Khatib/Imam : <b>Ustadz Abdul Rajab Siregar, S.Ag</b></span>
     </div>
 </div>
-   <button onclick="bukaModalImsakiyah()" style="background: linear-gradient(to right, #2ecc71, #27ae60); color: white; border: none; padding: 12px; width: 100%; border-radius: 25px; font-weight: bold; cursor: pointer; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: sans-serif; display: flex; align-items: center; justify-content: center; gap: 10px;">
-    🌙 JADWAL IMSAKIYAH RAMADHAN 1447 H
-</button>
-</a>
         <div class="clock-box">
             <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
     <button onclick="suaraAlarmBiasa.play()" class="date-btn" style="background: rgba(212, 175, 55, 0.2); padding: 5px 10px;">
@@ -250,7 +227,7 @@
     <button onclick="stopSemuaAudio()" class="date-btn" style="background: rgba(220, 53, 69, 0.4); border-color: #ff4444; color: #ffcccc; padding: 5px 15px;">
         <i class="fas fa-stop-circle"></i> STOP
         <button onclick="bukaModalTarawih()" class="date-btn" style="background: rgba(212, 175, 55, 0.4); border-color: #d4af37; color: white; margin-top: 10px; width: 100%; font-weight: bold;">
-    <i class="fas fa-moon"></i> JADWAL TARAWIH 1447 H
+    <i class="fas fa-moon"></i> AGENDA KEGIATAN BKM
 </button>
 
 <div id="modalTarawih" class="modal-tarawih">
@@ -269,45 +246,46 @@
 
         <div id="detail-view"></div>
 
-        <p style="font-size: 0.7rem; color: var(--gold-light); margin-top: 20px;">PILIH TANGGAL (FEBRUARI 2026):</p>
+        <p style="font-size: 0.7rem; color: var(--gold-light); margin-top: 20px;">PILIH TANGGAL (APRIL 2026):</p>
         <div class="date-grid" id="date-buttons"></div>
     </div>
 
     <script>
-    const imams = ["SURIANTO, B.Sc", "CITRA DHARMA PRAYOGO, S.Kom", "MAWARDI NUR, S.Pd", "NUHBA PADANG, S.Pd", "MUHAMMAD YUDI ASHARI", "ZULKARNAIN"];
+    const imams = ["SURIANTO, B.Sc", "CITRA DHARMA PRAYOGO, S.Kom", "MAWARDI NUR, S.Pd", "NUHBAH PADANG, S.Pd", "MUHAMMAD YUDI ASHARI", "ZULKARNAIN"];
     // INI ADALAH ARRAY (DAFTAR) JADWAL TARAWIH
-const jadwalTarawih = {
-    "2026-02-18": { malam: 1, imam: "BKM ASY-SYAKIRIN", bilal: "M. Yudi Ashari" },
-    "2026-02-19": { malam: 2, imam: "Mawardi Nur, S.Pd", bilal: "Fitriono, SE" },
-    "2026-02-20": { malam: 3, imam: "Bulian Purba, S.Ag", bilal: "Erizal" },
-    "2026-02-21": { malam: 4, imam: "Ahmad Nazri Adlani NST, M.Sos", bilal: "Nuhba Padang" },
-    "2026-02-22": { malam: 5, imam: "Muhammad Zulkifli, S.Sos", bilal: "Ahmad Syahri" },
-    "2026-02-23": { malam: 6, imam: "Fahruddin Nasution, S.Pd", bilal: "Andi Syahputra" },
-    "2026-02-24": { malam: 7, imam: "Khoiruddin Daulay, S.Pd.I", bilal: "C.D. Prayogo" },
-    "2026-02-25": { malam: 8, imam: "Abdul Hamid, S.Pd.I", bilal: "Hafis" },
-    "2026-02-26": { malam: 9, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "M. Yudi Ashari" },
-    "2026-02-27": { malam: 10, imam: "Muhammad Irsyad, M.Ag", bilal: "Fitriono, SE" },
-    "2026-02-28": { malam: 11, imam: "Ahmad Nazri Adlani NST, M.Sos", bilal: "Erizal" },
-    "2026-03-01": { malam: 12, imam: "Muhammad Zulkifli, S.Sos", bilal: "Nuhba Padang" },
-    "2026-03-02": { malam: 13, imam: "Ibrahim Hasibuan, S.Pd.I", bilal: "Ahmad Syahri" },
-    "2026-03-03": { malam: 14, imam: "Fadlan Khoir, S.Th.I, M.Ag", bilal: "Andi Syahputra" },
-    "2026-03-04": { malam: 15, imam: "Mawardi Nur, S.Pd", bilal: "C.D. Prayogo" },
-    "2026-03-05": { malam: 16, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "Hafis" },
-    "2026-03-06": { malam: 17, imam: "Bulian Purba, S.Ag", bilal: "M. Yudi Ashari" },
-    "2026-03-07": { malam: 18, imam: "H. Mara Jaksa Harahap, MA", bilal: "Fitriono, SE" },
-    "2026-03-08": { malam: 19, imam: "Abdul Rajab Siregar, S.Ag", bilal: "Erizal" },
-    "2026-03-09": { malam: 20, imam: "Khoiruddin Daulay, S.Pd.I", bilal: "Nuhba Padang" },
-    "2026-03-10": { malam: 21, imam: "Fahruddin Nasution, S.Pd", bilal: "Ahmad Syahri" },
-    "2026-03-11": { malam: 22, imam: "Abdul Hamid, S.Pd.I", bilal: "Andi Syahputra" },
-    "2026-03-12": { malam: 23, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "C.D. Prayogo" },
-    "2026-03-13": { malam: 24, imam: "Surianto, B.Sc", bilal: "Hafis" },
-    "2026-03-14": { malam: 25, imam: "Muhammad Yudi Ashari", bilal: "M. Yudi Ashari" },
-    "2026-03-15": { malam: 26, imam: "Abdul Rajab Siregar, S.Ag", bilal: "Fitriono, SE" },
-    "2026-03-16": { malam: 27, imam: "Ibrahim Hasibuan, S.Pd.I", bilal: "Erizal" },
-    "2026-03-17": { malam: 28, imam: "Fadlan Khoir, S.Th.I, M.Ag", bilal: "Nuhba Padang" },
-    "2026-03-18": { malam: 29, imam: "Muhammad Irsyad, M.Ag", bilal: "Ahmad Syahri" },
-    "2026-03-19": { malam: 30, imam: "Arif Habibi, S.Pd.I (UAS KW)", bilal: "Andi Syahputra" }
-}; // Pastikan ada titik koma di penutup kurung ini!
+const dataTarawih = [
+    { tgl: "19 Feb", malam: "1", imam: "BKM ASY-SYAKIRIN", bilal: "M. YUDI ASHARI" },
+    { tgl: "20 Feb", malam: "2", imam: "BULIAN PURBA, S.Ag", bilal: "FITRIONO, SE" },
+    { tgl: "21 Feb", malam: "3", imam: "AHMAD NAZRI ADLANI NST, M.Sos", bilal: "ERIZAL" },
+    { tgl: "22 Feb", malam: "4", imam: "MUHAMMAD ZULKIFLI, S.Sos", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
+    { tgl: "23 Feb", malam: "5", imam: "FAHRUDDIN NASUTION, S.Pd", bilal: "ANDI SYAHPUTRA" },
+    { tgl: "24 Feb", malam: "6", imam: "KHOIRUDDIN DAULAY, S.Pd.I", bilal: "C.D. PRAYOGO" },
+    { tgl: "25 Feb", malam: "7", imam: "ABDUL HAMID, S.Pd.I", bilal: "HAFIS" },
+    { tgl: "26 Feb", malam: "8", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "M. YUDI ASHARI" },
+    { tgl: "27 Feb", malam: "9", imam: "MUHAMMAD IRSYAD, M.Ag", bilal: "FITRIONO, SE" },
+    { tgl: "28 Feb", malam: "10", imam: "AHMAD NAZRI ADLANI NST, M.Sos", bilal: "ERIZAL" },
+    { tgl: "1 Mar", malam: "11", imam: "MUHAMMAD ZULKIFLI, S.Sos", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
+    { tgl: "2 Mar", malam: "12", imam: "IBRAHIM HASIBUAN, S.Pd.I", bilal: "ANDI SYAHPUTRA" },
+    { tgl: "3 Mar", malam: "13", imam: "FADLAN KHOIR, S.Th.I, M.Ag", bilal: "C.D. PRAYOGO" },
+    { tgl: "4 Mar", malam: "14", imam: "MAWARDI NUR, S.Pd", bilal: "HAFIS" },
+    { tgl: "5 Mar", malam: "15", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "M. YUDI ASHARI" },
+    { tgl: "6 Mar", malam: "16", imam: "BULIAN PURBA, S.Ag", bilal: "FITRIONO, SE" },
+    { tgl: "7 Mar", malam: "17", imam: "H. MARA JAKSA HARAHAP, MA", bilal: "ERIZAL" },
+    { tgl: "8 Mar", malam: "18", imam: "ABDUL RAJAB SIREGAR, S.Ag", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
+    { tgl: "9 Mar", malam: "19", imam: "KHOIRUDDIN DAULAY, S.Pd.I", bilal: "ANDI SYAHPUTRA" },
+    { tgl: "10 Mar", malam: "20", imam: "FAHRUDDIN NASUTION, S.Pd", bilal: "C.D. PRAYOGO" },
+    { tgl: "11 Mar", malam: "21", imam: "ABDUL HAMID, S.Pd.I", bilal: "HAFIS" },
+    { tgl: "12 Mar", malam: "22", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "M. YUDI ASHARI" },
+    { tgl: "13 Mar", malam: "23", imam: "SURIANTO, B.Sc", bilal: "FITRIONO, SE" },
+    { tgl: "14 Mar", malam: "24", imam: "MUHAMMAD YUDI ASHARI", bilal: "ERIZAL" },
+    { tgl: "15 Mar", malam: "25", imam: "ABDUL RAJAB SIREGAR, S.Ag", bilal: "NUHBAH PADANG, S.Pd" }, // Revisi
+    { tgl: "16 Mar", malam: "26", imam: "IBRAHIM HASIBUAN, S.Pd.I", bilal: "ANDI SYAHPUTRA" },
+    { tgl: "17 Mar", malam: "27", imam: "FADLAN KHOIR, S.Th.I, M.Ag", bilal: "C.D. PRAYOGO" },
+    { tgl: "18 Mar", malam: "28", imam: "MUHAMMAD IRSYAD, M.Ag", bilal: "M. YUDI ASHARI" },
+    { tgl: "19 Mar", malam: "29", imam: "ARIF HABIBI, S.Pd.I (UAS KW)", bilal: "HAFIS" },
+    { tgl: "20 Mar", malam: "30", imam: "ABDUL RAJAB SIREGAR, S.Ag", bilal: "ALL BILAL" },
+    { tgl: "21 Mar", malam: "1 Syawal", imam: "USTADZ FERY FADLI, S.Pd", bilal: "TAKBIRAN", special: true }
+];
 
 // FUNGSI UNTUK MEMBUKA JENDELA (MODAL)
 function bukaModalTarawih() {
@@ -322,14 +300,13 @@ function bukaModalTarawih() {
                 </thead>
                 <tbody>`;
     
-    Object.keys(jadwalTarawih).forEach(tgl => {
-    const item = jadwalTarawih[tgl];
-    html += `<tr>
-        <td style="text-align:center"><b>${item.malam}</b><br><small>${tgl}</small></td>
-        <td>${item.imam}</td>
-        <td>${item.bilal}</td>
-    </tr>`;
-});
+    dataTarawih.forEach(item => {
+        html += `<tr>
+                    <td style="text-align:center"><b>${item.malam}</b><br><small>${item.tgl}</small></td>
+                    <td>${item.imam}</td>
+                    <td>${item.bilal}</td>
+                 </tr>`;
+    });
     
     html += `</tbody></table>`;
     container.innerHTML = html;
@@ -409,7 +386,7 @@ function tutupModalTarawih() {
         }
 
         // Buka otomatis hari ini
-        if (bulanHariIni === 1 && tglHariIni <= 28) {
+        if (bulanHariIni === 1 && tglHariIni <= 30) {
             const el = document.getElementById(`btn-tgl-${tglHariIni}`);
             if(el) el.click();
         } else {
@@ -424,7 +401,7 @@ function tutupModalTarawih() {
         const khatib = khatibs[dayStr];
         const isJumat = (dayLabel === "Jum");
 
-        let html = `<h3 style="margin-top:0; color:var(--dark-green); border-bottom:2px solid var(--gold); padding-bottom:10px;">Jadwal ${dayLabel}, ${dayStr} Feb 2026</h3>`;
+        let html = `<h3 style="margin-top:0; color:var(--dark-green); border-bottom:2px solid var(--gold); padding-bottom:10px;">Rabu ${dayLabel}, ${dayStr} April 2026</h3>`;
 
         if (isJumat && khatib) {
             html += `<div class="khatib-header"><i class="fas fa-mosque"></i> KHATIB / IMAM JUM'AT:<br><span style="font-size:1.1rem">${khatib}</span></div>`;
@@ -467,108 +444,52 @@ function stopSemuaAudio() {
     }
 
     function checkAlarm() {
-    const sekarang = new Date();
-    
-    // Pastikan ini bulan Februari (Bulan 1 di JavaScript)
-    if (sekarang.getMonth() !== 1) return;
+        const sekarang = new Date();
+        if (sekarang.getMonth() !== 1) return; 
 
-    const tgl = sekarang.getDate();
-    const jam = sekarang.getHours().toString().padStart(2, '0');
-    const menit = sekarang.getMinutes().toString().padStart(2, '0');
-    const detik = sekarang.getSeconds();
-    const waktuSekarang = `${jam}:${menit}`;
+        const tglHariIni = sekarang.getDate();
+        const jamSkrg = sekarang.getHours().toString().padStart(2, '0');
+        const menitSkrg = sekarang.getMinutes().toString().padStart(2, '0');
+        const detikSkrg = sekarang.getSeconds();
+        const waktuSkrgStr = `${jamSkrg}:${menitSkrg}`;
+        
+        const listSholat = [
+            {id:'sub', n:'Subuh'}, {id:'zuh', n:'Zuhur'}, {id:'ash', n:'Ashar'}, {id:'mag', n:'Maghrib'}, {id:'isy', n:'Isya'}
+        ];
 
-    // Ambil jadwal sholat hari ini dari object jadwalSholat
-    const jadwal = jadwalSholat[tgl];
-    if (!jadwal) return;
+        listSholat.forEach(sholat => {
+            const waktuSholat = getWaktu(sholat.id, tglHariIni); 
+            const [jamS, menitS] = waktuSholat.split(':').map(Number);
+            let totalMenitAlarm = (jamS * 60) + menitS - 15;
+            const waktuAlarmStr = `${Math.floor(totalMenitAlarm/60).toString().padStart(2,'0')}:${(totalMenitAlarm%60).toString().padStart(2,'0')}`;
 
-    // Supaya azan HANYA bunyi sekali tepat di detik ke-00
-    if (detik === 0) {
-        if (waktuSekarang === jadwal.Subuh) {
-            suaraAdzanSubuh.play().catch(e => console.log("Izin audio diperlukan"));
-        } else if (
-            waktuSekarang === jadwal.Dzuhur || 
-            waktuSekarang === jadwal.Ashar || 
-            waktuSekarang === jadwal.Maghrib || 
-            waktuSekarang === jadwal.Isya
-        ) {
-            suaraAdzanBiasa.play().catch(e => console.log("Izin audio diperlukan"));
-        }
+            if (waktuSkrgStr === waktuAlarmStr && detikSkrg === 0) {
+                suaraAlarmBiasa.play().catch(e => console.log("Audio diblokir"));
+                console.log(`📢 PENGINGAT: 15 Menit lagi masuk waktu ${sholat.n}.`);
+// Atau biarkan kosong saja kalau kamu cuma mau suaranya bunyi.
+            }
+
+            if (waktuSkrgStr === waktuSholat && detikSkrg === 0) {
+                if (sholat.id === 'sub') {
+                    suaraAdzanSubuh.play().catch(e => console.log("Audio diblokir"));
+                } else {
+                    suaraAdzanBiasa.play().catch(e => console.log("Audio diblokir"));
+                }
+            }
+        });
     }
-}
-    // JALANKAN SEMUA FUNGSI (Di luar onload agar langsung ngebut)
-updateClock(); 
-generateCalendar(); 
 
-// SET INTERVAL AGAR JALAN TIAP DETIK
-setInterval(updateClock, 1000);
-setInterval(checkAlarm, 1000);
+    // JALANKAN SEMUA FUNGSI
+    window.onload = function() {
+    // Memaksa browser mobile mengenali file audio
+    suaraAlarmBiasa.load();
+    suaraAdzanBiasa.load();
+    suaraAdzanSubuh.load();
 
-// LOAD AUDIO (Tetap di onload biar hemat memori)
-window.onload = function() {
-    if (typeof suaraAdzanBiasa !== 'undefined') suaraAdzanBiasa.load();
-    if (typeof suaraAdzanSubuh !== 'undefined') suaraAdzanSubuh.load();
-};
-        const dataImsakiyah = [
-    { t: "1", i: "05.11", m: "18.41" }, { t: "2", i: "05.11", m: "18.41" },
-    { t: "3", i: "05.11", m: "18.41" }, { t: "4", i: "05.11", m: "18.41" },
-    { t: "5", i: "05.11", m: "18.41" }, { t: "6", i: "05.11", m: "18.41" },
-    { t: "7", i: "05.11", m: "18.41" }, { t: "8", i: "05.11", m: "18.41" },
-    { t: "9", i: "05.10", m: "18.41" }, { t: "10", i: "05.10", m: "18.41" },
-    { t: "11", i: "05.10", m: "18.41" }, { t: "12", i: "05.10", m: "18.41" },
-    { t: "13", i: "05.10", m: "18.41" }, { t: "14", i: "05.10", m: "18.41" },
-    { t: "15", i: "05.09", m: "18.41" }, { t: "16", i: "05.09", m: "18.40" },
-    { t: "17", i: "05.09", m: "18.40" }, { t: "18", i: "05.09", m: "18.40" },
-    { t: "19", i: "05.08", m: "18.40" }, { t: "20", i: "05.08", m: "18.40" },
-    { t: "21", i: "05.08", m: "18.40" }, { t: "22", i: "05.07", m: "18.40" },
-    { t: "23", i: "05.07", m: "18.39" }, { t: "24", i: "05.07", m: "18.39" },
-    { t: "25", i: "05.06", m: "18.39" }, { t: "26", i: "05.06", m: "18.39" },
-    { t: "27", i: "05.06", m: "18.39" }, { t: "28", i: "05.05", m: "18.38" },
-    { t: "29", i: "05.05", m: "18.38" }, { t: "30", i: "05.05", m: "18.38" }
-];
-
-function bukaModalImsakiyah() {
-    let tableHtml = `
-        <div id="modalImsak" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; display:flex; justify-content:center; align-items:center; font-family:sans-serif;">
-            <div style="background:#1a472a; width:90%; max-width:450px; max-height:85vh; overflow-y:auto; border-radius:15px; padding:20px; color:white; border:2px solid #f1c40f; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #27ae60; padding-bottom:10px;">
-                    <h3 style="margin:0; color:#f1c40f; font-size:16px;">Jadwal Imsakiyah 1447 H</h3>
-                    <button onclick="document.getElementById('modalImsak').remove()" style="background:#e74c3c; color:white; border:none; border-radius:50%; width:28px; height:28px; cursor:pointer; font-weight:bold;">X</button>
-                </div>
-                <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:center;">
-                    <thead style="background:#27ae60; position:sticky; top:0;">
-                        <tr>
-                            <th style="padding:10px; border:1px solid #2c3e50;">Ramadhan</th>
-                            <th style="padding:10px; border:1px solid #2c3e50;">Imsak</th>
-                            <th style="padding:10px; border:1px solid #2c3e50;">Maghrib</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
+    generateCalendar();
     
-    dataImsakiyah.forEach(item => {
-        tableHtml += `
-            <tr style="border-bottom: 1px solid #2c3e50;">
-                <td style="padding:10px;">${item.t} Ramadhan</td>
-                <td style="padding:10px;">${item.i}</td>
-                <td style="padding:10px; color:#f1c40f;"><b>${item.m}</b></td>
-            </tr>`;
-    });
-
-    tableHtml += `</tbody></table>
-                <p style="font-size:10px; text-align:center; margin-top:15px; color:#bdc3c7;">* Waktu Maghrib adalah waktu berbuka puasa</p>
-            </div>
-        </div>`;
-    document.body.insertAdjacentHTML('beforeend', tableHtml);
-}
+    // Jalankan jam dan alarm
+    setInterval(updateClock, 1000);
+    setInterval(checkAlarm, 1000);
+};
 </script>
-
-
-
-
-
-
-
-
-
-
-
